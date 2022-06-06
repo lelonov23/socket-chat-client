@@ -3,9 +3,17 @@ import Channel from "./Channel";
 
 interface ChannelListProps {
   channels: Channel[];
+  onSelectChannel: (id: string | number) => void;
 }
 
-const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
+const ChannelList: React.FC<ChannelListProps> = ({
+  channels,
+  onSelectChannel,
+}) => {
+  const handleClick = (id: number | string) => {
+    onSelectChannel(id);
+  };
+
   return (
     <div className="channel-list">
       {channels &&
@@ -16,6 +24,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ channels }) => {
               id={c.id}
               name={c.name}
               participants={c.participants}
+              messages={c.messages}
+              onClick={handleClick}
             />
           );
         })}
